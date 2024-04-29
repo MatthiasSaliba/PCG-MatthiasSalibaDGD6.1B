@@ -102,9 +102,9 @@ public class Cube : MonoBehaviour
 
         meshFilter.mesh = meshBuilder.CreateMesh();
 
-        //MaterialsBuilder materialsBuilder = new MaterialsBuilder();
+        MaterialsBuilder materialsBuilder = new MaterialsBuilder();
 
-        //MeshRenderer meshRenderer = this.GetComponent<MeshRenderer>();
-        //meshRenderer.materials = materialsBuilder.MaterialsList().ToArray();
+        MeshRenderer meshRenderer = this.GetComponent<MeshRenderer>();
+        meshRenderer.materials = materialsBuilder.MaterialsList().ToArray();
     }
 }
