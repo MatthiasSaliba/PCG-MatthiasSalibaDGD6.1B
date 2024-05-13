@@ -9,6 +9,8 @@ public class TerrainTextureData
 {
     public Texture2D terrainTexture;
     public Vector2 tileSize;
+    public float minHeight;
+    public float maxHeight;
 }
 
 public class GenerateRandomHeights : MonoBehaviour
@@ -46,6 +48,11 @@ public class GenerateRandomHeights : MonoBehaviour
     
     [SerializeField]
     private bool addTerrainTexture = false;
+
+    [SerializeField] 
+    private float terrainTextureBlendOffset = 0.01f;
+    
+    
     
     // Start is called before the first frame update
     void Start()
@@ -123,6 +130,52 @@ public class GenerateRandomHeights : MonoBehaviour
         }
 
         terrainData.terrainLayers = terrainLayers;
+        
+        float[,] heightMap = terrainData.GetHeights(0,0, terrainData.heightmapResolution, terrainData.heightmapResolution);
+        
+        float[, ,] alphamapList = new float[terrainData.alphamapHeight, terrainData.alphamapWidth, terrainData.alphamapLayers];
+
+        for (int height = 0; height < terrainData.alphamapHeight; height++)
+        {
+            for (int width = 0; width < terrainData.alphamapWidth; width++)
+            {
+                float[] alphamap = new float[terrainData.alphamapLayers];
+                
+                for (int i = 0; i < terrainTextureData.Count; i++)
+                {
+                    float heightBegin = terrainTextureData[i].minHeight - terrainTextureBlendOffset;
+                    float heightEnd = terrainTextureData[i].maxHeight + terrainTextureBlendOffset;
+
+                    if (heightMap[width,height] >= heightBegin && heightMap[width,height] <= heightEnd) 
+                    {
+                        alphamap[i] = 1;
+                    }
+                }
+                Blend(alphamap);
+                
+                for (int j = 0; j < terrainTextureData.Count; j++)
+                {
+                    alphamapList[width, height, j] = alphamap[j];
+                }
+            }
+        }
+        
+        terrainData.SetAlphamaps(0, 0, alphamapList);
+    }
+
+    private void Blend(float[] alphamap)
+    {
+        float total = 0;
+        
+        for (int i = 0; i < alphamap.Length; i++)
+        {
+            total += alphamap[i];
+        }
+        
+        for (int i = 0; i < alphamap.Length; i++)
+        {
+            alphamap[i] = alphamap[i] / total;
+        }
     }
 
     private void OnDestroy()
