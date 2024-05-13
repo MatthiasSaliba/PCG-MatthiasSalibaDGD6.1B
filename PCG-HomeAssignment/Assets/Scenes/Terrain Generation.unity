@@ -302,13 +302,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 489551824}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalRotation: {x: 0.16068126, y: 0.2259126, z: 0.043775596, w: 0.9598066}
+  m_LocalPosition: {x: 0, y: 300, z: -196}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 16.778, y: 27.881, z: 9.416}
 --- !u!1 &1284789039
 GameObject:
   m_ObjectHideFlags: 0
@@ -322,7 +322,7 @@ GameObject:
   - component: {fileID: 1284789040}
   - component: {fileID: 1284789043}
   - component: {fileID: 1284789044}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Terrain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -440,16 +440,32 @@ MonoBehaviour:
   perlinNoiseWidthScale: 0.01
   perlinNoiseHeightScale: 0.01
   terrainTextureData:
-  - terrainTexture: {fileID: 2800000, guid: bde7423cb35c64746b6b24c63040dcb0, type: 3}
-    tileSize: {x: 20, y: 20}
-    minHeight: 0
-    maxHeight: 0
   - terrainTexture: {fileID: 2800000, guid: e18ae12a8286a594bae0eb036ce9bc12, type: 3}
     tileSize: {x: 20, y: 20}
     minHeight: 0
-    maxHeight: 0
+    maxHeight: 0.2
+  - terrainTexture: {fileID: 2800000, guid: bde7423cb35c64746b6b24c63040dcb0, type: 3}
+    tileSize: {x: 20, y: 20}
+    minHeight: 0.2
+    maxHeight: 0.5
+  - terrainTexture: {fileID: 2800000, guid: 7e35234e281d141418972228ee38415e, type: 3}
+    tileSize: {x: 20, y: 20}
+    minHeight: 0.5
+    maxHeight: 0.8
+  - terrainTexture: {fileID: 2800000, guid: ffa01093856b873448237de84289ee85, type: 3}
+    tileSize: {x: 20, y: 20}
+    minHeight: 0.8
+    maxHeight: 1
   addTerrainTexture: 1
-  terrainTextureBlendOffset: 0.01
+  terrainTextureBlendOffset: 0.1
+  treeData:
+  - treeMesh: {fileID: 114418, guid: be878d9ea17907f4a8068678a5ce7908, type: 3}
+    minHeight: 0
+    maxHeight: 0.5
+  maxTrees: 10000
+  treeSpacing: 10
+  addTrees: 0
+  terrainLayerIndex: 8
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
