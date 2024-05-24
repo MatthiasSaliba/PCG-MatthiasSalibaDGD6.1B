@@ -76,6 +76,27 @@ public class GenerateRandomHeights : MonoBehaviour
     [SerializeField]
     private int terrainLayerIndex;
     
+    [Header("Water")]
+    [SerializeField]
+    private GameObject water;
+    
+    [SerializeField]
+    private float waterHeight = 0.3f;
+    
+    [Header("Clouds")]
+    [SerializeField]
+    private GameObject clouds;
+
+    [SerializeField]
+    private float cloudHeight = 0.3f;
+
+    [Header("Rain")]
+    [SerializeField]
+    private GameObject rain;
+
+    [SerializeField]
+    private float rainHeight = 1f;
+    
     
     // Start is called before the first frame update
     void Start()
@@ -92,6 +113,9 @@ public class GenerateRandomHeights : MonoBehaviour
         GenerateHeights();
         AddTerrainTextures();
         AddTrees();
+        AddWater();
+        AddClouds();
+        AddRain();
     }
 
     void GenerateHeights()
@@ -264,6 +288,30 @@ public class GenerateRandomHeights : MonoBehaviour
             }
             terrainData.treeInstances = treeInstanceList.ToArray();
         }
+    }
+
+    private void AddWater()
+    {
+        GameObject waterGameObject = Instantiate(water, this.transform.position, this.transform.rotation);
+        waterGameObject.name = "Water";
+        waterGameObject.transform.position = this.transform.position + new Vector3(terrainData.size.x / 2, waterHeight * terrainData.size.y, terrainData.size.z / 2);
+        waterGameObject.transform.localScale = new Vector3(terrainData.size.x, 1, terrainData.size.z);
+    }
+    
+    private void AddClouds()
+    {
+        GameObject cloudsGameObject = Instantiate(clouds, this.transform.position, this.transform.rotation);
+        cloudsGameObject.name = "Clouds";
+        cloudsGameObject.transform.position = this.transform.position + new Vector3(terrainData.size.x / 2, cloudHeight * terrainData.size.y, terrainData.size.y / 2);
+        cloudsGameObject.transform.localScale = new Vector3(terrainData.size.x / 180, 1, terrainData.size.z / 180);
+    }
+    
+    private void AddRain()
+    {
+        GameObject rainGameObject = Instantiate(rain, this.transform.position, this.transform.rotation);
+        rainGameObject.name = "Rain";
+        rainGameObject.transform.position = this.transform.position + new Vector3(terrainData.size.x / 2, rainHeight * terrainData.size.y, terrainData.size.z / 2);
+        rainGameObject.transform.localScale = new Vector3(terrainData.size.x, 1, terrainData.size.z);
     }
 
     private void OnDestroy()
